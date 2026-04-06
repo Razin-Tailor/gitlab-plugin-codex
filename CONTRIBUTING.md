@@ -21,13 +21,16 @@ npm run check
 This runs:
 
 - workspace validation for marketplace and plugin manifests
+- MCP server configuration validation
 - command document validation
-- automated tests for the validator
+- automated tests for the validator and MCP server surface
 
 ## Repository Layout
 
 - `.agents/plugins/marketplace.json`: local marketplace catalog
 - `plugins/gitlab/.codex-plugin/plugin.json`: plugin manifest
+- `plugins/gitlab/.mcp.json`: MCP server registration
+- `plugins/gitlab/server/`: MCP server implementation
 - `plugins/gitlab/skills/`: Codex skills
 - `plugins/gitlab/commands/`: slash-command definitions
 - `scripts/`: validation and maintenance scripts

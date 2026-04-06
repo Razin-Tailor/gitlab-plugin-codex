@@ -2,11 +2,19 @@
 
 CLI-first Codex plugin for GitLab workflows, designed to be hardened for future marketplace publication.
 
+This plugin now includes a real local MCP server, so clone, pull, and push can be invoked through the plugin surface instead of calling `glab` manually.
+
 ## Supported Commands
 
 - `/gitlab-clone`
 - `/gitlab-pull`
 - `/gitlab-push`
+
+## Supported MCP Tools
+
+- `gitlab_clone`
+- `gitlab_pull`
+- `gitlab_push`
 
 ## Operational Model
 
@@ -29,9 +37,12 @@ CLI-first Codex plugin for GitLab workflows, designed to be hardened for future 
 This plugin is guarded by repository-level validation that checks:
 
 - manifest integrity
+- MCP server configuration integrity
 - asset paths
 - skill frontmatter
 - command frontmatter and required sections
+
+Tool-surface tests connect to the plugin's stdio MCP server and call the tools through the MCP client SDK.
 
 Run:
 

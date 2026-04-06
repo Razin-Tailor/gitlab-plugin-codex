@@ -10,6 +10,8 @@ The first supported workflows are intentionally narrow and safe:
 - pull updates with `git pull --ff-only`
 - push branches with `git push`
 
+These workflows are now exposed through a local MCP server inside the plugin, not only through command docs.
+
 ## Design Principles
 
 - Use `glab` for GitLab-aware auth and repository resolution.
@@ -30,6 +32,7 @@ That validates:
 
 - `.agents/plugins/marketplace.json`
 - plugin manifests under `plugins/*/.codex-plugin/plugin.json`
+- local MCP server configuration under `plugins/*/.mcp.json`
 - skill frontmatter
 - command frontmatter and required sections
 - repository-level publication files such as `README.md`, `LICENSE`, and `SECURITY.md`
@@ -41,10 +44,26 @@ CI runs the same checks on pushes and pull requests.
 - `.agents/plugins/marketplace.json`: local plugin catalog
 - `plugins/gitlab/`: GitLab plugin bundle
 - `plugins/gitlab/.codex-plugin/plugin.json`: plugin metadata
+- `plugins/gitlab/.mcp.json`: local MCP server registration
+- `plugins/gitlab/server/`: executable MCP server
 - `plugins/gitlab/skills/gitlab/SKILL.md`: umbrella GitLab workflow skill
 - `plugins/gitlab/commands/`: command documents
 - `scripts/`: validation tooling
 - `tests/`: automated tests
+
+## MCP Tooling
+
+List the plugin tools locally:
+
+```bash
+npm run mcp:list-tools
+```
+
+Invoke a tool directly through the plugin surface:
+
+```bash
+node scripts/invoke-mcp-tool.js gitlab_clone '{"repository":"group/project","directory":"/tmp/project"}'
+```
 
 ## Development Workflow
 

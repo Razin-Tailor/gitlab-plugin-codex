@@ -53,6 +53,7 @@ function createFixtureWorkspace() {
     license: "MIT",
     keywords: ["gitlab"],
     skills: "./skills/",
+    mcpServers: "./.mcp.json",
     interface: {
       displayName: "GitLab",
       shortDescription: "Fixture",
@@ -72,9 +73,22 @@ function createFixtureWorkspace() {
   });
 
   writeFile(path.join(workspaceRoot, "plugins/gitlab/README.md"), "# GitLab\n");
+  writeJson(path.join(workspaceRoot, "plugins/gitlab/.mcp.json"), {
+    mcpServers: {
+      gitlab: {
+        command: "node",
+        args: ["./server/index.js"],
+        cwd: "."
+      }
+    }
+  });
   writeFile(
     path.join(workspaceRoot, "plugins/gitlab/assets/gitlab-small.svg"),
     "<svg xmlns=\"http://www.w3.org/2000/svg\"></svg>\n"
+  );
+  writeFile(
+    path.join(workspaceRoot, "plugins/gitlab/server/index.js"),
+    "console.error('fixture mcp server');\n"
   );
   writeFile(
     path.join(workspaceRoot, "plugins/gitlab/skills/gitlab/SKILL.md"),

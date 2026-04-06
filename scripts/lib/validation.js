@@ -110,6 +110,65 @@ function validateSkillDirectory(skillDirPath, issues, workspaceRoot) {
   }
 }
 
+function validateMcpConfig(pluginRoot, manifest, issues, workspaceRoot, relativeManifestPath) {
+  if (!manifest.mcpServers) {
+    return;
+  }
+
+  const mcpConfigPath = path.join(pluginRoot, manifest.mcpServers.replace(/^\.\//, ""));
+  const relativeMcpPath = path.relative(workspaceRoot, mcpConfigPath);
+
+  if (!exists(mcpConfigPath)) {
+    addIssue(issues, relativeManifestPath, `mcpServers path does not exist: ${manifest.mcpServers}`);
+    return;
+  }
+
+  let mcpConfig;
+  try {
+    mcpConfig = readJson(mcpConfigPath);
+  } catch (error) {
+    addIssue(issues, relativeMcpPath, `invalid JSON: ${error.message}`);
+    return;
+  }
+
+  if (!mcpConfig.mcpServers || typeof mcpConfig.mcpServers !== "object") {
+    addIssue(issues, relativeMcpPath, "mcp config must contain an mcpServers object");
+    return;
+  }
+
+  const entries = Object.entries(mcpConfig.mcpServers);
+  if (entries.length === 0) {
+    addIssue(issues, relativeMcpPath, "mcp config must declare at least one server");
+    return;
+  }
+
+  for (const [serverName, serverConfig] of entries) {
+    if (!serverConfig || typeof serverConfig !== "object") {
+      addIssue(issues, relativeMcpPath, `${serverName}: server config must be an object`);
+      continue;
+    }
+
+    if (serverConfig.type === "http") {
+      if (!serverConfig.url || typeof serverConfig.url !== "string") {
+        addIssue(issues, relativeMcpPath, `${serverName}: http servers must define a url`);
+      }
+      continue;
+    }
+
+    if (!serverConfig.command || typeof serverConfig.command !== "string") {
+      addIssue(issues, relativeMcpPath, `${serverName}: local servers must define a command`);
+    }
+
+    if (serverConfig.args && !Array.isArray(serverConfig.args)) {
+      addIssue(issues, relativeMcpPath, `${serverName}: args must be an array when provided`);
+    }
+
+    if (serverConfig.cwd && typeof serverConfig.cwd !== "string") {
+      addIssue(issues, relativeMcpPath, `${serverName}: cwd must be a string when provided`);
+    }
+  }
+}
+
 function validatePluginManifest(pluginRoot, manifestPath, marketplaceEntry, issues, workspaceRoot) {
   const manifest = readJson(manifestPath);
   const relativeManifestPath = path.relative(workspaceRoot, manifestPath);
@@ -219,6 +278,8 @@ function validatePluginManifest(pluginRoot, manifestPath, marketplaceEntry, issu
   if (!exists(pluginReadmePath)) {
     addIssue(issues, path.relative(workspaceRoot, pluginRoot), "plugin root should include README.md");
   }
+
+  validateMcpConfig(pluginRoot, manifest, issues, workspaceRoot, relativeManifestPath);
 
   const commandRoot = path.join(pluginRoot, "commands");
   if (exists(commandRoot)) {
