@@ -65,6 +65,22 @@ Invoke a tool directly through the plugin surface:
 node scripts/invoke-mcp-tool.js gitlab_clone '{"repository":"group/project","directory":"/tmp/project"}'
 ```
 
+## Discovery Readiness
+
+The repository now includes explicit discovery support for future marketplace install suggestions:
+
+- richer GitLab-oriented plugin metadata in `plugins/gitlab/.codex-plugin/plugin.json`
+- prompt and shell signals in `plugins/gitlab/skills/gitlab/SKILL.md`
+- a reference active-remote detector in `scripts/lib/git-remote-detection.js`
+- a heuristic spec in `docs/install-suggestion-heuristic.md`
+
+The intended host-app behavior is:
+
+1. detect the active remote for the current repository
+2. classify the remote as GitLab or not
+3. if it is GitLab and the plugin is not installed, show the install suggestion card
+4. if it is GitLab and the plugin is installed, route the request into this plugin
+
 ## Development Workflow
 
 1. Update plugin docs, skills, or commands.

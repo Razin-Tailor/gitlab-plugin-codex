@@ -23,7 +23,7 @@ This runs:
 - workspace validation for marketplace and plugin manifests
 - MCP server configuration validation
 - command document validation
-- automated tests for the validator and MCP server surface
+- automated tests for the validator, MCP server surface, and remote-detection heuristics
 
 ## Repository Layout
 
@@ -59,6 +59,7 @@ Before release or marketplace submission:
 - keep repository and homepage URLs current
 - review privacy policy and terms links
 - make sure prompt examples match the current feature set
+- keep discovery metadata aligned with the actual supported GitLab workflows
 
 ## Pull Requests
 

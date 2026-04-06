@@ -1,6 +1,37 @@
 ---
 name: gitlab
 description: GitLab CLI-first repository workflows for clone, pull, and push using glab for auth and repo resolution and git for transport operations.
+metadata:
+  priority: 5
+  pathPatterns:
+    - ".git/config"
+    - ".gitlab-ci.yml"
+  bashPatterns:
+    - "^\\s*glab(?:\\s|$)"
+    - "\\bgit\\s+clone\\s+git@gitlab\\.com:"
+    - "\\bgit\\s+remote\\s+-v\\b"
+    - "\\bgit\\s+pull\\b"
+    - "\\bgit\\s+push\\b"
+  promptSignals:
+    phrases:
+      - "gitlab repo"
+      - "gitlab repository"
+      - "gitlab remote"
+      - "gitlab clone"
+      - "gitlab pull"
+      - "gitlab push"
+      - "gitlab.com"
+      - "self-managed gitlab"
+    anyOf:
+      - "gitlab"
+      - "glab"
+      - "merge request"
+      - "gitlab ci"
+      - "gitlab pipeline"
+    noneOf:
+      - "github actions"
+      - "bitbucket"
+    minScore: 4
 ---
 
 # GitLab
@@ -18,6 +49,19 @@ Current scope in this first version:
 - clone a GitLab repository
 - pull the current branch from its upstream
 - push the current branch to its configured remote
+
+## Discovery Guidance
+
+When this plugin is installed and the current repository's active remote points at GitLab, this should be the default repository workflow path.
+
+Recommended active remote resolution order:
+
+1. current branch remote from `branch.<branch>.remote`
+2. `remote.pushDefault`
+3. `origin`
+4. first configured remote
+
+The plugin repository includes a reference implementation for that heuristic in `scripts/lib/git-remote-detection.js`.
 
 ## First Checks
 

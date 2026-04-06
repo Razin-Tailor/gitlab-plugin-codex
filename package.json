@@ -1,6 +1,6 @@
 {
   "name": "gitlab-plugin-codex",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "description": "Production-focused Codex plugin workspace for GitLab workflows backed by glab.",
   "license": "MIT",

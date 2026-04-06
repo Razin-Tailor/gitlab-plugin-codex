@@ -1,6 +1,6 @@
 {
   "name": "gitlab",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "GitLab repository workflows for Codex backed by a local MCP server and glab.",
   "author": {
     "name": "Razin Tailor",
@@ -14,6 +14,13 @@
     "gitlab",
     "glab",
     "git",
+    "repository",
+    "remote",
+    "gitlab.com",
+    "self-managed-gitlab",
+    "merge-request",
+    "pipeline",
+    "gitlab-ci",
     "clone",
     "pull",
     "push"
@@ -22,8 +29,8 @@
   "mcpServers": "./.mcp.json",
   "interface": {
     "displayName": "GitLab",
-    "shortDescription": "Clone, pull, and push GitLab repos through a local MCP server",
-    "longDescription": "Bring GitLab repository workflows into Codex through a local MCP server that validates glab auth, uses glab for repo discovery and cloning, and uses git for pull and push operations with safe defaults.",
+    "shortDescription": "GitLab repository operations through a local MCP server",
+    "longDescription": "Bring GitLab repository workflows into Codex through a local MCP server that validates glab auth, uses glab for repo discovery and cloning, and uses git for pull and push operations with safe defaults. Discovery metadata is tuned for GitLab remote context and future marketplace install suggestions.",
     "developerName": "Razin Tailor",
     "category": "Coding",
     "capabilities": [
@@ -34,9 +41,9 @@
     "privacyPolicyURL": "https://about.gitlab.com/privacy/",
     "termsOfServiceURL": "https://about.gitlab.com/terms/",
     "defaultPrompt": [
-      "Use the GitLab MCP tools to clone a repo",
-      "Pull the latest changes from this GitLab checkout",
-      "Push my current branch through the GitLab plugin"
+      "Use GitLab tools for this repository checkout",
+      "Clone or sync a GitLab repository through the plugin",
+      "Push the current branch to its GitLab remote"
     ],
     "composerIcon": "./assets/gitlab-small.svg",
     "logo": "./assets/gitlab-small.svg",
