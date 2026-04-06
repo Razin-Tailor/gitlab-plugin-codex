@@ -1,0 +1,44 @@
+{
+  "name": "gitlab",
+  "version": "0.1.0",
+  "description": "GitLab repository workflows for Codex backed by the glab CLI.",
+  "author": {
+    "name": "Razin Tailor",
+    "url": "https://gitlab.com/Razin-Tailor"
+  },
+  "homepage": "https://gitlab.com/",
+  "repository": "https://gitlab.com/",
+  "license": "MIT",
+  "keywords": [
+    "gitlab",
+    "glab",
+    "git",
+    "clone",
+    "pull",
+    "push"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "GitLab",
+    "shortDescription": "Clone, pull, and push GitLab repos with glab-aware workflows",
+    "longDescription": "Bring GitLab repository workflows into Codex through a CLI-first plugin that validates local glab auth, uses glab for repo discovery and cloning, and uses git for pull and push operations.",
+    "developerName": "Razin Tailor",
+    "category": "Coding",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "websiteURL": "https://gitlab.com/",
+    "privacyPolicyURL": "https://about.gitlab.com/privacy/",
+    "termsOfServiceURL": "https://about.gitlab.com/terms/",
+    "defaultPrompt": [
+      "Clone a GitLab repo with glab",
+      "Pull the latest changes from this GitLab branch",
+      "Push my current branch to GitLab"
+    ],
+    "composerIcon": "./assets/gitlab-small.svg",
+    "logo": "./assets/gitlab-small.svg",
+    "screenshots": [],
+    "brandColor": "#FC6D26"
+  }
+}
