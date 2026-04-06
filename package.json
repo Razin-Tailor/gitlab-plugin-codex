@@ -1,0 +1,26 @@
+{
+  "name": "gitlab-plugin-codex",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Production-focused Codex plugin workspace for GitLab workflows backed by glab.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "validate": "node ./scripts/validate.js",
+    "test": "node --test",
+    "check": "npm run validate && npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Razin-Tailor/gitlab-plugin-codex.git"
+  },
+  "keywords": [
+    "codex",
+    "plugin",
+    "gitlab",
+    "glab"
+  ]
+}

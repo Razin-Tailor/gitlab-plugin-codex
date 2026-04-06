@@ -1,31 +1,61 @@
 # GitLab Codex Plugin
 
-This workspace is a local Codex plugin catalog containing one plugin: `gitlab`.
+Production-focused Codex plugin workspace for GitLab workflows built around `glab`.
 
-Initial scope:
+## Current Scope
+
+The first supported workflows are intentionally narrow and safe:
 
 - clone GitLab repositories with `glab repo clone`
 - pull updates with `git pull --ff-only`
 - push branches with `git push`
 
-Catalog layout:
+## Design Principles
+
+- Use `glab` for GitLab-aware auth and repository resolution.
+- Use `git` for transport operations that `glab` does not wrap directly.
+- Default to the safest behavior that still matches normal developer expectations.
+- Validate plugin metadata and command definitions automatically.
+- Keep the repository ready for eventual marketplace review and publication.
+
+## Quality Gates
+
+Run the full local check before pushing:
+
+```bash
+npm run check
+```
+
+That validates:
 
 - `.agents/plugins/marketplace.json`
-- `plugins/gitlab/.codex-plugin/plugin.json`
-- `plugins/gitlab/skills/gitlab/SKILL.md`
-- `plugins/gitlab/commands/gitlab-clone.md`
-- `plugins/gitlab/commands/gitlab-pull.md`
-- `plugins/gitlab/commands/gitlab-push.md`
+- plugin manifests under `plugins/*/.codex-plugin/plugin.json`
+- skill frontmatter
+- command frontmatter and required sections
+- repository-level publication files such as `README.md`, `LICENSE`, and `SECURITY.md`
 
-Implementation notes:
+CI runs the same checks on pushes and pull requests.
 
-- GitLab auth and repo resolution go through `glab`.
-- Git transport uses `git` where `glab` does not expose dedicated `pull` or `push` commands.
-- Pull defaults to fast-forward only.
-- Push never uses force flags unless the user explicitly asks.
+## Repository Layout
 
-Planned next steps:
+- `.agents/plugins/marketplace.json`: local plugin catalog
+- `plugins/gitlab/`: GitLab plugin bundle
+- `plugins/gitlab/.codex-plugin/plugin.json`: plugin metadata
+- `plugins/gitlab/skills/gitlab/SKILL.md`: umbrella GitLab workflow skill
+- `plugins/gitlab/commands/`: command documents
+- `scripts/`: validation tooling
+- `tests/`: automated tests
 
-- add project publish and remote creation flows
-- add merge request and pipeline workflows
-- add better helpers for self-managed GitLab hosts
+## Development Workflow
+
+1. Update plugin docs, skills, or commands.
+2. Run `npm run check`.
+3. Review the command behavior for safe defaults.
+4. Push only after validation is clean.
+
+## Planned Feature Expansion
+
+- project publish and remote creation flows
+- merge request workflows
+- pipeline status and log workflows
+- self-managed GitLab host guidance

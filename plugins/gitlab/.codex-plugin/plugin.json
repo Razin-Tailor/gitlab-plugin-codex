@@ -4,10 +4,11 @@
   "description": "GitLab repository workflows for Codex backed by the glab CLI.",
   "author": {
     "name": "Razin Tailor",
-    "url": "https://gitlab.com/Razin-Tailor"
+    "email": "r42intailor@gmail.com",
+    "url": "https://github.com/Razin-Tailor"
   },
-  "homepage": "https://gitlab.com/",
-  "repository": "https://gitlab.com/",
+  "homepage": "https://github.com/Razin-Tailor/gitlab-plugin-codex",
+  "repository": "https://github.com/Razin-Tailor/gitlab-plugin-codex",
   "license": "MIT",
   "keywords": [
     "gitlab",
@@ -28,7 +29,7 @@
       "Interactive",
       "Write"
     ],
-    "websiteURL": "https://gitlab.com/",
+    "websiteURL": "https://github.com/Razin-Tailor/gitlab-plugin-codex",
     "privacyPolicyURL": "https://about.gitlab.com/privacy/",
     "termsOfServiceURL": "https://about.gitlab.com/terms/",
     "defaultPrompt": [
